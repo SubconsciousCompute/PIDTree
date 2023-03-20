@@ -1,10 +1,12 @@
 #![allow(non_snake_case)]
 
 mod process;
+mod thread;
 
 use std::collections::HashMap;
 
 use crate::process::Win32_Process;
+use crate::thread::Win32_Thread;
 
 pub use wmi::COMLibrary;
 pub use wmi::{Variant, WMIConnection, WMIDateTime, WMIDuration};
@@ -15,9 +17,8 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     let com_con = COMLibrary::new()?;
     let wmi_con = WMIConnection::with_namespace_path(r"Root\CIMV2", com_con)?;
 
-    //  Represents a sequence of events on a computer system running Windows
+    //  Represents a sequence of process events on a computer system running Windows
     let results: Vec<Win32_Process> = wmi_con.raw_query("SELECT * FROM Win32_Process")?;
-
     dbg!(&results);
 
     /*
@@ -34,5 +35,8 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     //dbg!(&results[0]);
 
+    //  Represents a sequence of thread events on a computer system running Windows
+    let results: Vec<Win32_Thread> = wmi_con.raw_query("SELECT * FROM Win32_Thread")?;
+    dbg!(&results);
     Ok(())
 }
