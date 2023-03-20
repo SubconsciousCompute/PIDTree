@@ -2,7 +2,7 @@ PIDTree
 
 **WIP**
 
-Simply run `cargo run --release` to see the sequence of process events on windows
+Simply run `cargo run --release` to see the sequence of process and thread events on windows
 
 You can also see the tree by uncommenting the following in [main.rs](src/main.rs):
 ```rust
